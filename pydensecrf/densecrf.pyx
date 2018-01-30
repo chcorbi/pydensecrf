@@ -48,7 +48,7 @@ cdef class LogisticUnary(Unary):
 
 cdef class DenseCRF:
 
-    def __cinit__(self, int nvar, int nlabels, *_, **__):
+    def __cinit__(self, int nvar, int nlabels):
         # We need to swallow extra-arguments because superclass cinit function
         # will always be called with the same params as the subclass, automatically.
 
