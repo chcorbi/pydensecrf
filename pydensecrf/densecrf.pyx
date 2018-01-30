@@ -48,7 +48,7 @@ cdef class LogisticUnary(Unary):
 
 cdef class DenseCRF:
 
-    def __cinit__(self, int nvar, int nlabels):
+    def __cinit__(self, int nvar, int nlabels, *_, **__):
         # We need to swallow extra-arguments because superclass cinit function
         # will always be called with the same params as the subclass, automatically.
 
@@ -100,11 +100,7 @@ cdef class DenseCRF:
     def klDivergence(self, MatrixXf Q):
         return self._this.klDivergence(Q.m)
 
-    def __reduce__(self):
-        # a tuple as specified in the pickle docs - (class_or_constructor,
-        # (tuple, of, args, to, constructor))
-        return (self.__class__, (self._nvar, self._nlabel))
-			    
+
 cdef class DenseCRF2D(DenseCRF):
 
     # The same comments as in the superclass' `__cinit__` apply here.
@@ -142,3 +138,9 @@ cdef class DenseCRF2D(DenseCRF):
         self._this2d.addPairwiseBilateral(
             sxy[0], sxy[1], srgb[0], srgb[1], srgb[2], &rgbim[0,0,0], _labelcomp(compat), kernel, normalization
         )
+
+    def __reduce__(self):
+        # a tuple as specified in the pickle docs - (class_or_constructor,
+        # (tuple, of, args, to, constructor))
+        return (self.__class__, (self._w, self._h, self._nlabel))
+			    
