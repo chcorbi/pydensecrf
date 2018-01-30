@@ -100,7 +100,11 @@ cdef class DenseCRF:
     def klDivergence(self, MatrixXf Q):
         return self._this.klDivergence(Q.m)
 
-
+    def __reduce__(self):
+        # a tuple as specified in the pickle docs - (class_or_constructor,
+	# (tuple, of, args, to, constructor))
+	return (self.__class__, (self._nvar, self._nlabels))
+			    
 cdef class DenseCRF2D(DenseCRF):
 
     # The same comments as in the superclass' `__cinit__` apply here.
