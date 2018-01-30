@@ -102,8 +102,8 @@ cdef class DenseCRF:
 
     def __reduce__(self):
         # a tuple as specified in the pickle docs - (class_or_constructor,
-	# (tuple, of, args, to, constructor))
-	return (self.__class__, (self._nvar, self._nlabels))
+        # (tuple, of, args, to, constructor))
+        return (self.__class__, (self._nvar, self._nlabels))
 			    
 cdef class DenseCRF2D(DenseCRF):
 
